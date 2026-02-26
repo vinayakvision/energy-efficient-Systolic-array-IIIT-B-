@@ -1,0 +1,56 @@
+==============================================================
+SUMMARY
+==============================================================
+           Properties Considered              : 140
+                 assertions                   : 64
+                  - proven                    : 55 (85.9375%)
+                  - bounded_proven (user)     : 0 (0%)
+                  - bounded_proven (auto)     : 0 (0%)
+                  - marked_proven             : 0 (0%)
+                  - cex                       : 1 (1.5625%)
+                  - ar_cex                    : 0 (0%)
+                  - undetermined              : 8 (12.5%)
+                  - unknown                   : 0 (0%)
+                  - error                     : 0 (0%)
+                 covers                       : 76
+                  - unreachable               : 34 (44.7368%)
+                  - bounded_unreachable (user): 0 (0%)
+                  - covered                   : 33 (43.4211%)
+                  - ar_covered                : 0 (0%)
+                  - undetermined              : 9 (11.8421%)
+                  - unknown                   : 0 (0%)
+                  - error                     : 0 (0%)
+
+==============================================================
+    JasperGold Verification Results
+==============================================================
+    2019.09p002 64 bits for Linux64 2.6.32-431.11.2.el6.x86_64
+    Host Name: localhost
+    User Name: vlsi_S34
+    Printed on: Wednesday, Feb 4, 2026 01:46:32 PM IST
+    Working Directory: /home/vlsi_S34/capstone/formal_verification/tcl
+
+
+==============================================================
+SUMMARY
+==============================================================
+    Total Tasks           : 1
+    Total Properties      : 154
+          assumptions     : 14                  
+           - approved     : 0                   ( 0.0% )
+           - temporary    : 14                  ( 100.0% )
+          assertions      : 64                  
+           - proven       : 55                  ( 85.9% )
+           - marked_proven: 0                   ( 0.0% )
+           - cex          : 1                   ( 1.6% )
+           - ar_cex       : 0                   ( 0.0% )
+           - undetermined : 8                   ( 12.5% )
+           - unprocessed  : 0                   ( 0.0% )
+           - error        : 0                   ( 0.0% )
+          covers          : 76                  
+           - unreachable  : 34                  ( 44.7% )
+           - covered      : 33                  ( 43.4% )
+           - ar_covered   : 0                   ( 0.0% )
+           - undetermined : 9                   ( 11.8% )
+           - unprocessed  : 0                   ( 0.0% )
+           - error        : 0                   ( 0.0% )
