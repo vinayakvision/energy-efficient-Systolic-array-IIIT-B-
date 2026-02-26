@@ -1,0 +1,107 @@
+PS D:\Capstone Project\IIIT_Bnglr\Python Model> python update.py
+
+==============================================
+Layer Scale = 1
+Reference Output (INT64):
+[[ 90 100 110 120]
+ [202 228 254 280]
+ [314 356 398 440]
+ [426 484 542 600]]
+
+Quantized Systolic Output:
+[[ 90 100 110 120]
+ [202 228 254 280]
+ [314 356 398 440]
+ [426 484 542 600]]
+
+Error (Reference - Quantized):
+[[0 0 0 0]
+ [0 0 0 0]
+ [0 0 0 0]
+ [0 0 0 0]]
+Max Absolute Error: 0
+
+==============================================
+Layer Scale = 2
+Reference Output (INT64):
+[[ 90 100 110 120]
+ [202 228 254 280]
+ [314 356 398 440]
+ [426 484 542 600]]
+
+Quantized Systolic Output:
+[[ 80 100 120 120]
+ [176 228 280 280]
+ [272 356 440 440]
+ [368 484 600 600]]
+
+Error (Reference - Quantized):
+[[ 10   0 -10   0]
+ [ 26   0 -26   0]
+ [ 42   0 -42   0]
+ [ 58   0 -58   0]]
+Max Absolute Error: 58
+
+==============================================
+Layer Scale = 4
+Reference Output (INT64):
+[[ 90 100 110 120]
+ [202 228 254 280]
+ [314 356 398 440]
+ [426 484 542 600]]
+
+Quantized Systolic Output:
+[[ 80 104 120 120]
+ [176 232 280 280]
+ [272 360 440 440]
+ [368 488 600 600]]
+
+Error (Reference - Quantized):
+[[ 10  -4 -10   0]
+ [ 26  -4 -26   0]
+ [ 42  -4 -42   0]
+ [ 58  -4 -58   0]]
+Max Absolute Error: 58
+
+==============================================
+Layer Scale = 8
+Reference Output (INT64):
+[[ 90 100 110 120]
+ [202 228 254 280]
+ [314 356 398 440]
+ [426 484 542 600]]
+
+Quantized Systolic Output:
+[[104 104 104 128]
+ [232 232 232 288]
+ [360 360 360 448]
+ [488 488 488 608]]
+
+Error (Reference - Quantized):
+[[-14  -4   6  -8]
+ [-30  -4  22  -8]
+ [-46  -4  38  -8]
+ [-62  -4  54  -8]]
+Max Absolute Error: 62
+
+==============================================
+Layer Scale = 16
+Reference Output (INT64):
+[[ 90 100 110 120]
+ [202 228 254 280]
+ [314 356 398 440]
+ [426 484 542 600]]
+
+Quantized Systolic Output:
+[[112 112 112 112]
+ [240 240 240 240]
+ [368 368 368 368]
+ [496 496 496 496]]
+
+Error (Reference - Quantized):
+[[-22 -12  -2   8]
+ [-38 -12  14  40]
+ [-54 -12  30  72]
+ [-70 -12  46 104]]
+Max Absolute Error: 104
+PS D:\Capstone Project\IIIT_Bnglr\Python Model>
