@@ -1,0 +1,40 @@
+// ============================================================
+// Formal Properties for MAC / PE block
+// ============================================================
+
+module mac_block_properties (
+    input logic               clk,
+    input logic               rst,
+    input logic signed [63:0]  p_sum,
+    input logic signed [31:0]  inp_west,
+    input logic signed [31:0]  outp_east,
+    input logic signed [63:0]  result
+);
+
+    // ========================================================
+    // 1. RESET BEHAVIOR (SAFETY)
+    // ========================================================
+    assert property (@(posedge clk)
+        rst |-> (result == 64'sd0 && outp_east == 32'sd0)
+    );
+
+    // ========================================================
+    // 2. PIPELINE FORWARDING (SAFETY)
+    // ========================================================
+    assert property (@(posedge clk)
+        disable iff (rst)
+        outp_east == $past(inp_west)
+    );
+
+    // ========================================================
+    // 3. DATA ACTIVITY EXISTS (COVER, NOT ASSERT)
+    // ========================================================
+    // Arithmetic datapath may legitimately stall;
+    // we only check that activity is POSSIBLE
+    cover property (@(posedge clk)
+        disable iff (rst)
+        result != $past(result)
+    );
+
+endmodule
+

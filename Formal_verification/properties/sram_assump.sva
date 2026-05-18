@@ -1,0 +1,59 @@
+// ============================================================
+// Formal Environment Assumptions for asic_sram_macro
+// ============================================================
+
+module sram_assumptions #(
+    parameter int DATA_W = 32,
+    parameter int ADDR_W = 4
+)(
+    input logic               clk,
+    input logic               cs,
+    input logic               we,
+    input logic [ADDR_W-1:0]  addr,
+    input logic [DATA_W-1:0]  din,
+    input logic [DATA_W-1:0]  dout
+);
+
+    // ========================================================
+    // 1. ADDRESS RANGE SAFETY
+    // ========================================================
+
+    // Address must always be within memory bounds
+    assume property (@(posedge clk)
+        addr < (1 << ADDR_W)
+    );
+
+    // ========================================================
+    // 2. WRITE ENABLE DISCIPLINE
+    // ========================================================
+
+    // Write only happens when chip-select is active
+    assume property (@(posedge clk)
+        we |-> cs
+    );
+
+    // ========================================================
+    // 3. SIGNAL STABILITY DURING ACCESS
+    // ========================================================
+
+    // Address must be stable during a memory access
+    assume property (@(posedge clk)
+        cs |-> $stable(addr)
+    );
+
+    // Write data must be stable during write
+    assume property (@(posedge clk)
+        (cs && we) |-> $stable(din)
+    );
+
+    // ========================================================
+    // 4. SEQUENTIAL OUTPUT BEHAVIOR
+    // ========================================================
+
+    // Output changes only on clock edge (no combinational read)
+    assume property (@(negedge clk)
+        $stable(dout)
+    );
+
+endmodule
+

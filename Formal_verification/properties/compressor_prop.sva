@@ -1,0 +1,46 @@
+// ============================================================
+// Formal Properties for int32_to_int8_compressor (Jasper-safe)
+// ============================================================
+
+module compressor_properties (
+    input logic signed [31:0] in_w,
+    input logic [31:0]        scale,
+    input logic signed [7:0]  out_w
+);
+
+    // ========================================================
+    // Immediate (combinational) assertions
+    // ========================================================
+    always_comb begin
+
+        // ----------------------------------------------------
+        // 1. SATURATION SAFETY
+        // ----------------------------------------------------
+        assert (out_w <= 8'sd127)
+            else $error("Compressor overflow: out_w > 127");
+
+        assert (out_w >= -8'sd128)
+            else $error("Compressor underflow: out_w < -128");
+
+        // ----------------------------------------------------
+        // 2. ZERO PRESERVATION
+        // ----------------------------------------------------
+        if (in_w == 32'sd0)
+            assert (out_w == 8'sd0)
+                else $error("Zero input did not produce zero output");
+
+        // ----------------------------------------------------
+        // 3. SIGN CONSISTENCY
+        // ----------------------------------------------------
+        if (in_w > 32'sd127)
+            assert (out_w >= 8'sd0)
+                else $error("Positive input produced negative output");
+
+        if (in_w < -32'sd128)
+            assert (out_w <= 8'sd0)
+                else $error("Negative input produced positive output");
+
+    end
+
+endmodule
+

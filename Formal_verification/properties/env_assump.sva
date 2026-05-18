@@ -1,0 +1,21 @@
+module env_assumptions (
+    input logic clk,
+    input logic rst,
+    input logic start,
+    input logic mem_we
+);
+
+    // start is a pulse
+    assume property (@(posedge clk)
+        disable iff (rst)
+        start |=> !start
+    );
+
+    // no memory writes during execution
+    assume property (@(posedge clk)
+        disable iff (rst)
+        mem_we == 0
+    );
+
+endmodule
+

@@ -1,0 +1,70 @@
+// ============================================================
+// Top-Level Formal Properties for systolic_top
+// ============================================================
+
+module top_properties (
+    input logic        clk,
+    input logic        rst,
+    input logic        start,
+    input logic        done,
+    input logic [63:0] Re1, Re2, Re3, Re4
+);
+
+    // ========================================================
+    // 1. RESET PROPAGATION
+    // ========================================================
+
+    // During reset, outputs must be zero and done must be low
+    assert property (@(posedge clk)
+        rst |-> (done == 1'b0 &&
+                 Re1 == 64'd0 &&
+                 Re2 == 64'd0 &&
+                 Re3 == 64'd0 &&
+                 Re4 == 64'd0)
+    );
+
+    // ========================================================
+    // 2. START / DONE HANDSHAKE (INTEGRATION)
+    // ========================================================
+
+    // A start must eventually produce done
+    assert property (@(posedge clk)
+        disable iff (rst)
+        start |-> ##[1:50] done
+    );
+
+    // done must be a pulse (one-cycle)
+    assert property (@(posedge clk)
+        disable iff (rst)
+        done |=> !done
+    );
+
+    // ========================================================
+    // 3. OUTPUT STABILITY AFTER DONE
+    // ========================================================
+
+    // Once done is asserted, results must remain stable
+    assert property (@(posedge clk)
+        disable iff (rst)
+        done |-> ##1
+        ($stable(Re1) && $stable(Re2) &&
+         $stable(Re3) && $stable(Re4))
+    );
+
+    // ========================================================
+    // 4. END-TO-END COVERAGE
+    // ========================================================
+
+    // Full operation observed
+    cover property (@(posedge clk)
+        disable iff (rst)
+        start ##[1:50] done
+    );
+
+    // At least one non-zero output observed
+    cover property (@(posedge clk)
+        (Re1 != 0 || Re2 != 0 || Re3 != 0 || Re4 != 0)
+    );
+
+endmodule
+

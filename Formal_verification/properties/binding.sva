@@ -1,0 +1,105 @@
+// ============================================================
+// FINAL SVA Bindings for Systolic Design
+// ============================================================
+
+/* ------------------------------------------------------------
+ * FSM properties ? systolic_control
+ * ------------------------------------------------------------ */
+bind systolic_control fsm_properties u_fsm_props (
+    .clk   (clk),
+    .rst   (rst),
+    .start (start),
+    .done  (done),
+    .state (state),
+    .addr  (addr),
+    .count (count)
+);
+
+
+/* ------------------------------------------------------------
+ * SRAM environment assumptions ? asic_sram_macro
+ * ------------------------------------------------------------ */
+bind asic_sram_macro sram_assumptions #(
+    .DATA_W (DATA_W),
+    .ADDR_W (ADDR_W)
+) u_sram_assm (
+    .clk  (clk),
+    .cs   (cs),
+    .we   (we),
+    .addr (addr),
+    .din  (din),
+    .dout (dout)
+);
+
+
+/* ------------------------------------------------------------
+ * MAC (block) properties ? ALL block instances
+ * ------------------------------------------------------------ */
+bind block mac_block_properties u_mac_props (
+    .clk       (clk),
+    .rst       (rst),
+    .inp_west  (inp_west),
+    .outp_east (outp_east)
+);
+
+
+/* ------------------------------------------------------------
+ * Compressor properties ? int32_to_int8_compressor
+ * ------------------------------------------------------------ */
+bind int32_to_int8_compressor compressor_properties u_comp_props (
+    .in_w  (in_w),
+    .scale (scale),
+    .out_w (out_w)
+);
+
+
+/* ------------------------------------------------------------
+ * Decompressor properties ? int8_to_int32_decompressor
+ * ------------------------------------------------------------ */
+bind int8_to_int32_decompressor decompressor_properties u_decomp_props (
+    .in_w  (in_w),
+    .scale (scale),
+    .out_w (out_w)
+);
+
+
+/* ------------------------------------------------------------
+ * Core datapath properties ? systolic_core
+ * ------------------------------------------------------------ */
+bind systolic_core core_properties u_core_props (
+    .clk  (clk),
+    .rst  (rst),
+    .inP1 (inP1),
+    .inP5 (inP5),
+    .inP9 (inP9),
+    .inP13(inP13),
+    .Re1  (Re1),
+    .Re2  (Re2),
+    .Re3  (Re3),
+    .Re4  (Re4)
+);
+
+
+/* ------------------------------------------------------------
+ * Top-level integration properties ? systolic_top
+ * ------------------------------------------------------------ */
+bind systolic_top top_properties u_top_props (
+    .clk   (clk),
+    .rst   (rst),
+    .start (start),
+    .done  (done),
+    .Re1   (Re1),
+    .Re2   (Re2),
+    .Re3   (Re3),
+    .Re4   (Re4)
+);
+
+
+bind systolic_top env_assumptions u_env (
+    .clk(clk),
+    .rst(rst),
+    .start(start),
+    .mem_we(mem_we)
+);
+
+
